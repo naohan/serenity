@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\serenity.props" />
+</Project>
