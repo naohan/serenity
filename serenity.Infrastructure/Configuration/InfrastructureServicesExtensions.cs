@@ -23,7 +23,7 @@ public static class InfrastructureServicesExtensions
                 throw new InvalidOperationException("Connection string 'DefaultConnection' was not found.");
             }
 
-            options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
+            options.UseNpgsql(connectionString);
         });
 
         services.AddScoped<IUnitOfWork, UnitOfWork>();

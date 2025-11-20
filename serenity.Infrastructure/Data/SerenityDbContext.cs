@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using Pomelo.EntityFrameworkCore.MySql.Scaffolding.Internal;
 using serenity.Infrastructure;
 
 namespace serenity.Infrastructure.Data;
@@ -56,16 +55,13 @@ public partial class SerenityDbContext : DbContext
     {
         if (!optionsBuilder.IsConfigured)
         {
-            const string fallbackConnection = "server=localhost;port=3306;database=serenity;user=root";
-            optionsBuilder.UseMySql(fallbackConnection, Microsoft.EntityFrameworkCore.ServerVersion.Parse("10.4.32-mariadb"));
+            const string fallbackConnection = "Host=localhost;Port=5432;Database=serenity;Username=postgres;Password=;";
+            optionsBuilder.UseNpgsql(fallbackConnection);
         }
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder
-            .UseCollation("utf8mb4_general_ci")
-            .HasCharSet("utf8mb4");
 
         modelBuilder.Entity<Appointment>(entity =>
         {
@@ -78,27 +74,27 @@ public partial class SerenityDbContext : DbContext
             entity.HasIndex(e => e.PsychologistId, "psychologist_id");
 
             entity.Property(e => e.Id)
-                .HasColumnType("int(11)")
+                .HasColumnType("integer")
                 .HasColumnName("id");
             entity.Property(e => e.AppointmentDate).HasColumnName("appointment_date");
             entity.Property(e => e.AppointmentTime)
                 .HasColumnType("time")
                 .HasColumnName("appointment_time");
             entity.Property(e => e.CreatedAt)
-                .HasDefaultValueSql("current_timestamp()")
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
                 .HasColumnType("timestamp")
                 .HasColumnName("created_at");
             entity.Property(e => e.Duration)
-                .HasColumnType("int(11)")
+                .HasColumnType("integer")
                 .HasColumnName("duration");
             entity.Property(e => e.Notes)
                 .HasColumnType("text")
                 .HasColumnName("notes");
             entity.Property(e => e.PatientId)
-                .HasColumnType("int(11)")
+                .HasColumnType("integer")
                 .HasColumnName("patient_id");
             entity.Property(e => e.PsychologistId)
-                .HasColumnType("int(11)")
+                .HasColumnType("integer")
                 .HasColumnName("psychologist_id");
             entity.Property(e => e.Status)
                 .HasMaxLength(50)
@@ -109,7 +105,7 @@ public partial class SerenityDbContext : DbContext
                 .HasColumnName("type");
             entity.Property(e => e.UpdatedAt)
                 .ValueGeneratedOnAddOrUpdate()
-                .HasDefaultValueSql("current_timestamp()")
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
                 .HasColumnType("timestamp")
                 .HasColumnName("updated_at");
 
@@ -133,23 +129,23 @@ public partial class SerenityDbContext : DbContext
             entity.HasIndex(e => e.PsychologistId, "psychologist_id");
 
             entity.Property(e => e.Id)
-                .HasColumnType("int(11)")
+                .HasColumnType("integer")
                 .HasColumnName("id");
             entity.Property(e => e.IsFromPsychologist).HasColumnName("is_from_psychologist");
             entity.Property(e => e.MessageText)
                 .HasColumnType("text")
                 .HasColumnName("message_text");
             entity.Property(e => e.PatientId)
-                .HasColumnType("int(11)")
+                .HasColumnType("integer")
                 .HasColumnName("patient_id");
             entity.Property(e => e.PsychologistId)
-                .HasColumnType("int(11)")
+                .HasColumnType("integer")
                 .HasColumnName("psychologist_id");
             entity.Property(e => e.ReadAt)
                 .HasColumnType("timestamp")
                 .HasColumnName("read_at");
             entity.Property(e => e.SentAt)
-                .HasDefaultValueSql("current_timestamp()")
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
                 .HasColumnType("timestamp")
                 .HasColumnName("sent_at");
 
@@ -171,21 +167,21 @@ public partial class SerenityDbContext : DbContext
             entity.HasIndex(e => new { e.PatientId, e.Date }, "patient_id").IsUnique();
 
             entity.Property(e => e.Id)
-                .HasColumnType("int(11)")
+                .HasColumnType("integer")
                 .HasColumnName("id");
             entity.Property(e => e.CreatedAt)
-                .HasDefaultValueSql("current_timestamp()")
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
                 .HasColumnType("timestamp")
                 .HasColumnName("created_at");
             entity.Property(e => e.Date).HasColumnName("date");
             entity.Property(e => e.Mood)
-                .HasColumnType("tinyint(4)")
+                .HasColumnType("smallint")
                 .HasColumnName("mood");
             entity.Property(e => e.Note)
                 .HasColumnType("text")
                 .HasColumnName("note");
             entity.Property(e => e.PatientId)
-                .HasColumnType("int(11)")
+                .HasColumnType("integer")
                 .HasColumnName("patient_id");
 
             entity.HasOne(d => d.Patient).WithMany(p => p.DailyMoods)
@@ -202,10 +198,10 @@ public partial class SerenityDbContext : DbContext
             entity.HasIndex(e => e.PatientId, "patient_id");
 
             entity.Property(e => e.Id)
-                .HasColumnType("int(11)")
+                .HasColumnType("integer")
                 .HasColumnName("id");
             entity.Property(e => e.CreatedAt)
-                .HasDefaultValueSql("current_timestamp()")
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
                 .HasColumnType("timestamp")
                 .HasColumnName("created_at");
             entity.Property(e => e.Date).HasColumnName("date");
@@ -213,7 +209,7 @@ public partial class SerenityDbContext : DbContext
                 .HasMaxLength(50)
                 .HasColumnName("emotional_state");
             entity.Property(e => e.PatientId)
-                .HasColumnType("int(11)")
+                .HasColumnType("integer")
                 .HasColumnName("patient_id");
             entity.Property(e => e.Value)
                 .HasPrecision(5, 2)
@@ -235,23 +231,23 @@ public partial class SerenityDbContext : DbContext
             entity.HasIndex(e => e.PsychologistId, "psychologist_id");
 
             entity.Property(e => e.Id)
-                .HasColumnType("int(11)")
+                .HasColumnType("integer")
                 .HasColumnName("id");
             entity.Property(e => e.CreatedAt)
-                .HasDefaultValueSql("current_timestamp()")
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
                 .HasColumnType("timestamp")
                 .HasColumnName("created_at");
             entity.Property(e => e.Description)
                 .HasColumnType("text")
                 .HasColumnName("description");
             entity.Property(e => e.PatientId)
-                .HasColumnType("int(11)")
+                .HasColumnType("integer")
                 .HasColumnName("patient_id");
             entity.Property(e => e.Priority)
                 .HasMaxLength(20)
                 .HasColumnName("priority");
             entity.Property(e => e.PsychologistId)
-                .HasColumnType("int(11)")
+                .HasColumnType("integer")
                 .HasColumnName("psychologist_id");
             entity.Property(e => e.Title)
                 .HasMaxLength(255)
@@ -261,7 +257,7 @@ public partial class SerenityDbContext : DbContext
                 .HasColumnName("type");
             entity.Property(e => e.UpdatedAt)
                 .ValueGeneratedOnAddOrUpdate()
-                .HasDefaultValueSql("current_timestamp()")
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
                 .HasColumnType("timestamp")
                 .HasColumnName("updated_at");
 
@@ -284,20 +280,20 @@ public partial class SerenityDbContext : DbContext
             entity.HasIndex(e => e.PatientId, "patient_id");
 
             entity.Property(e => e.Id)
-                .HasColumnType("int(11)")
+                .HasColumnType("integer")
                 .HasColumnName("id");
             entity.Property(e => e.CreatedAt)
-                .HasDefaultValueSql("current_timestamp()")
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
                 .HasColumnType("timestamp")
                 .HasColumnName("created_at");
             entity.Property(e => e.DurationMinutes)
-                .HasColumnType("int(11)")
+                .HasColumnType("integer")
                 .HasColumnName("duration_minutes");
             entity.Property(e => e.Notes)
                 .HasColumnType("text")
                 .HasColumnName("notes");
             entity.Property(e => e.PatientId)
-                .HasColumnType("int(11)")
+                .HasColumnType("integer")
                 .HasColumnName("patient_id");
             entity.Property(e => e.SessionDate).HasColumnName("session_date");
             entity.Property(e => e.Type)
@@ -318,32 +314,32 @@ public partial class SerenityDbContext : DbContext
             entity.HasIndex(e => e.PatientId, "patient_id");
 
             entity.Property(e => e.Id)
-                .HasColumnType("int(11)")
+                .HasColumnType("integer")
                 .HasColumnName("id");
             entity.Property(e => e.ConcentrationLevel)
-                .HasColumnType("tinyint(4)")
+                .HasColumnType("smallint")
                 .HasColumnName("concentration_level");
             entity.Property(e => e.CreatedAt)
-                .HasDefaultValueSql("current_timestamp()")
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
                 .HasColumnType("timestamp")
                 .HasColumnName("created_at");
             entity.Property(e => e.Date).HasColumnName("date");
             entity.Property(e => e.EnergyLevel)
-                .HasColumnType("tinyint(4)")
+                .HasColumnType("smallint")
                 .HasColumnName("energy_level");
             entity.Property(e => e.MeditationMinutes)
-                .HasDefaultValueSql("'0'")
-                .HasColumnType("int(11)")
+                .HasDefaultValueSql("0")
+                .HasColumnType("integer")
                 .HasColumnName("meditation_minutes");
             entity.Property(e => e.MeditationSessions)
-                .HasDefaultValueSql("'0'")
-                .HasColumnType("int(11)")
+                .HasDefaultValueSql("0")
+                .HasColumnType("integer")
                 .HasColumnName("meditation_sessions");
             entity.Property(e => e.PatientId)
-                .HasColumnType("int(11)")
+                .HasColumnType("integer")
                 .HasColumnName("patient_id");
             entity.Property(e => e.SatisfactionLevel)
-                .HasColumnType("tinyint(4)")
+                .HasColumnType("smallint")
                 .HasColumnName("satisfaction_level");
             entity.Property(e => e.SleepDuration)
                 .HasPrecision(4, 2)
@@ -352,11 +348,11 @@ public partial class SerenityDbContext : DbContext
                 .HasMaxLength(50)
                 .HasColumnName("sleep_quality");
             entity.Property(e => e.StressLevel)
-                .HasColumnType("tinyint(4)")
+                .HasColumnType("smallint")
                 .HasColumnName("stress_level");
             entity.Property(e => e.UpdatedAt)
                 .ValueGeneratedOnAddOrUpdate()
-                .HasDefaultValueSql("current_timestamp()")
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
                 .HasColumnType("timestamp")
                 .HasColumnName("updated_at");
 
@@ -374,7 +370,7 @@ public partial class SerenityDbContext : DbContext
             entity.HasIndex(e => e.PatientId, "patient_id");
 
             entity.Property(e => e.Id)
-                .HasColumnType("int(11)")
+                .HasColumnType("integer")
                 .HasColumnName("id");
             entity.Property(e => e.AnxiousPercentage)
                 .HasPrecision(5, 2)
@@ -383,7 +379,7 @@ public partial class SerenityDbContext : DbContext
                 .HasPrecision(5, 2)
                 .HasColumnName("calm_percentage");
             entity.Property(e => e.CreatedAt)
-                .HasDefaultValueSql("current_timestamp()")
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
                 .HasColumnType("timestamp")
                 .HasColumnName("created_at");
             entity.Property(e => e.Date).HasColumnName("date");
@@ -391,14 +387,14 @@ public partial class SerenityDbContext : DbContext
                 .HasPrecision(5, 2)
                 .HasColumnName("happy_percentage");
             entity.Property(e => e.PatientId)
-                .HasColumnType("int(11)")
+                .HasColumnType("integer")
                 .HasColumnName("patient_id");
             entity.Property(e => e.SadPercentage)
                 .HasPrecision(5, 2)
                 .HasColumnName("sad_percentage");
             entity.Property(e => e.UpdatedAt)
                 .ValueGeneratedOnAddOrUpdate()
-                .HasDefaultValueSql("current_timestamp()")
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
                 .HasColumnType("timestamp")
                 .HasColumnName("updated_at");
 
@@ -416,14 +412,14 @@ public partial class SerenityDbContext : DbContext
             entity.HasIndex(e => e.NoteId, "note_id");
 
             entity.Property(e => e.Id)
-                .HasColumnType("int(11)")
+                .HasColumnType("integer")
                 .HasColumnName("id");
             entity.Property(e => e.CreatedAt)
-                .HasDefaultValueSql("current_timestamp()")
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
                 .HasColumnType("timestamp")
                 .HasColumnName("created_at");
             entity.Property(e => e.NoteId)
-                .HasColumnType("int(11)")
+                .HasColumnType("integer")
                 .HasColumnName("note_id");
             entity.Property(e => e.Suggestion)
                 .HasColumnType("text")
@@ -445,16 +441,16 @@ public partial class SerenityDbContext : DbContext
             entity.HasIndex(e => e.UserId, "user_id").IsUnique();
 
             entity.Property(e => e.Id)
-                .HasColumnType("int(11)")
+                .HasColumnType("integer")
                 .HasColumnName("id");
             entity.Property(e => e.Age)
-                .HasColumnType("int(11)")
+                .HasColumnType("integer")
                 .HasColumnName("age");
             entity.Property(e => e.AvatarUrl)
                 .HasColumnType("text")
                 .HasColumnName("avatar_url");
             entity.Property(e => e.CreatedAt)
-                .HasDefaultValueSql("current_timestamp()")
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
                 .HasColumnType("timestamp")
                 .HasColumnName("created_at");
             entity.Property(e => e.Diagnosis)
@@ -464,7 +460,7 @@ public partial class SerenityDbContext : DbContext
                 .HasMaxLength(255)
                 .HasColumnName("name");
             entity.Property(e => e.PsychologistId)
-                .HasColumnType("int(11)")
+                .HasColumnType("integer")
                 .HasColumnName("psychologist_id");
             entity.Property(e => e.Status)
                 .HasMaxLength(50)
@@ -472,11 +468,11 @@ public partial class SerenityDbContext : DbContext
                 .HasColumnName("status");
             entity.Property(e => e.UpdatedAt)
                 .ValueGeneratedOnAddOrUpdate()
-                .HasDefaultValueSql("current_timestamp()")
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
                 .HasColumnType("timestamp")
                 .HasColumnName("updated_at");
             entity.Property(e => e.UserId)
-                .HasColumnType("int(11)")
+                .HasColumnType("integer")
                 .HasColumnName("user_id");
 
             entity.HasOne(d => d.Psychologist).WithMany(p => p.Patients)
@@ -501,7 +497,7 @@ public partial class SerenityDbContext : DbContext
             entity.HasIndex(e => e.PsychologistId, "psychologist_id");
 
             entity.Property(e => e.Id)
-                .HasColumnType("int(11)")
+                .HasColumnType("integer")
                 .HasColumnName("id");
             entity.Property(e => e.AiDiagnosis)
                 .HasColumnType("text")
@@ -510,25 +506,25 @@ public partial class SerenityDbContext : DbContext
                 .HasColumnType("text")
                 .HasColumnName("content");
             entity.Property(e => e.CreatedAt)
-                .HasDefaultValueSql("current_timestamp()")
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
                 .HasColumnType("timestamp")
                 .HasColumnName("created_at");
             entity.Property(e => e.Date).HasColumnName("date");
             entity.Property(e => e.Mood)
-                .HasColumnType("tinyint(4)")
+                .HasColumnType("smallint")
                 .HasColumnName("mood");
             entity.Property(e => e.NeedsFollowUp)
-                .HasDefaultValueSql("'0'")
+                .HasDefaultValueSql("0")
                 .HasColumnName("needs_follow_up");
             entity.Property(e => e.PatientId)
-                .HasColumnType("int(11)")
+                .HasColumnType("integer")
                 .HasColumnName("patient_id");
             entity.Property(e => e.PsychologistId)
-                .HasColumnType("int(11)")
+                .HasColumnType("integer")
                 .HasColumnName("psychologist_id");
             entity.Property(e => e.UpdatedAt)
                 .ValueGeneratedOnAddOrUpdate()
-                .HasDefaultValueSql("current_timestamp()")
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
                 .HasColumnType("timestamp")
                 .HasColumnName("updated_at");
 
@@ -552,23 +548,23 @@ public partial class SerenityDbContext : DbContext
             entity.HasIndex(e => e.PsychologistId, "psychologist_id");
 
             entity.Property(e => e.Id)
-                .HasColumnType("int(11)")
+                .HasColumnType("integer")
                 .HasColumnName("id");
             entity.Property(e => e.AnxietyLevel)
                 .HasMaxLength(20)
                 .HasColumnName("anxiety_level");
             entity.Property(e => e.CreatedAt)
-                .HasDefaultValueSql("current_timestamp()")
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
                 .HasColumnType("timestamp")
                 .HasColumnName("created_at");
             entity.Property(e => e.Diagnosis)
                 .HasColumnType("text")
                 .HasColumnName("diagnosis");
             entity.Property(e => e.PatientId)
-                .HasColumnType("int(11)")
+                .HasColumnType("integer")
                 .HasColumnName("patient_id");
             entity.Property(e => e.PsychologistId)
-                .HasColumnType("int(11)")
+                .HasColumnType("integer")
                 .HasColumnName("psychologist_id");
             entity.Property(e => e.Recommendations)
                 .HasColumnType("text")
@@ -578,7 +574,7 @@ public partial class SerenityDbContext : DbContext
                 .HasColumnName("title");
             entity.Property(e => e.UpdatedAt)
                 .ValueGeneratedOnAddOrUpdate()
-                .HasDefaultValueSql("current_timestamp()")
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
                 .HasColumnType("timestamp")
                 .HasColumnName("updated_at");
 
@@ -602,10 +598,10 @@ public partial class SerenityDbContext : DbContext
             entity.HasIndex(e => e.PsychologistId, "psychologist_id");
 
             entity.Property(e => e.Id)
-                .HasColumnType("int(11)")
+                .HasColumnType("integer")
                 .HasColumnName("id");
             entity.Property(e => e.CreatedAt)
-                .HasDefaultValueSql("current_timestamp()")
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
                 .HasColumnType("timestamp")
                 .HasColumnName("created_at");
             entity.Property(e => e.Dosage)
@@ -622,10 +618,10 @@ public partial class SerenityDbContext : DbContext
                 .HasMaxLength(255)
                 .HasColumnName("medication_name");
             entity.Property(e => e.PatientId)
-                .HasColumnType("int(11)")
+                .HasColumnType("integer")
                 .HasColumnName("patient_id");
             entity.Property(e => e.PsychologistId)
-                .HasColumnType("int(11)")
+                .HasColumnType("integer")
                 .HasColumnName("psychologist_id");
             entity.Property(e => e.StartDate).HasColumnName("start_date");
             entity.Property(e => e.Status)
@@ -634,7 +630,7 @@ public partial class SerenityDbContext : DbContext
                 .HasColumnName("status");
             entity.Property(e => e.UpdatedAt)
                 .ValueGeneratedOnAddOrUpdate()
-                .HasDefaultValueSql("current_timestamp()")
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
                 .HasColumnType("timestamp")
                 .HasColumnName("updated_at");
 
@@ -658,7 +654,7 @@ public partial class SerenityDbContext : DbContext
             entity.HasIndex(e => e.UserId, "user_id").IsUnique();
 
             entity.Property(e => e.Id)
-                .HasColumnType("int(11)")
+                .HasColumnType("integer")
                 .HasColumnName("id");
             entity.Property(e => e.CollegeNumber)
                 .HasMaxLength(50)
@@ -667,7 +663,7 @@ public partial class SerenityDbContext : DbContext
                 .HasMaxLength(100)
                 .HasColumnName("country");
             entity.Property(e => e.CreatedAt)
-                .HasDefaultValueSql("current_timestamp()")
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
                 .HasColumnType("timestamp")
                 .HasColumnName("created_at");
             entity.Property(e => e.Location)
@@ -678,15 +674,15 @@ public partial class SerenityDbContext : DbContext
                 .HasColumnName("specialization");
             entity.Property(e => e.UpdatedAt)
                 .ValueGeneratedOnAddOrUpdate()
-                .HasDefaultValueSql("current_timestamp()")
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
                 .HasColumnType("timestamp")
                 .HasColumnName("updated_at");
             entity.Property(e => e.UserId)
-                .HasColumnType("int(11)")
+                .HasColumnType("integer")
                 .HasColumnName("user_id");
             entity.Property(e => e.WeeklyScore)
-                .HasDefaultValueSql("'0'")
-                .HasColumnType("int(11)")
+                .HasDefaultValueSql("0")
+                .HasColumnType("integer")
                 .HasColumnName("weekly_score");
 
             entity.HasOne(d => d.User).WithOne(p => p.Psychologist)
@@ -703,18 +699,18 @@ public partial class SerenityDbContext : DbContext
             entity.HasIndex(e => e.PatientId, "patient_id");
 
             entity.Property(e => e.Id)
-                .HasColumnType("int(11)")
+                .HasColumnType("integer")
                 .HasColumnName("id");
             entity.Property(e => e.CreatedAt)
-                .HasDefaultValueSql("current_timestamp()")
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
                 .HasColumnType("timestamp")
                 .HasColumnName("created_at");
             entity.Property(e => e.Date).HasColumnName("date");
             entity.Property(e => e.PatientId)
-                .HasColumnType("int(11)")
+                .HasColumnType("integer")
                 .HasColumnName("patient_id");
             entity.Property(e => e.StressLevel)
-                .HasColumnType("tinyint(4)")
+                .HasColumnType("smallint")
                 .HasColumnName("stress_level");
             entity.Property(e => e.TimeOfDay)
                 .HasColumnType("time")
@@ -734,13 +730,13 @@ public partial class SerenityDbContext : DbContext
             entity.HasIndex(e => e.UserId, "user_id").IsUnique();
 
             entity.Property(e => e.Id)
-                .HasColumnType("int(11)")
+                .HasColumnType("integer")
                 .HasColumnName("id");
             entity.Property(e => e.Bio)
                 .HasColumnType("text")
                 .HasColumnName("bio");
             entity.Property(e => e.CreatedAt)
-                .HasDefaultValueSql("current_timestamp()")
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
                 .HasColumnType("timestamp")
                 .HasColumnName("created_at");
             entity.Property(e => e.Specialization)
@@ -748,11 +744,11 @@ public partial class SerenityDbContext : DbContext
                 .HasColumnName("specialization");
             entity.Property(e => e.UpdatedAt)
                 .ValueGeneratedOnAddOrUpdate()
-                .HasDefaultValueSql("current_timestamp()")
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
                 .HasColumnType("timestamp")
                 .HasColumnName("updated_at");
             entity.Property(e => e.UserId)
-                .HasColumnType("int(11)")
+                .HasColumnType("integer")
                 .HasColumnName("user_id");
 
             entity.HasOne(d => d.User).WithOne(p => p.Trainer)
@@ -769,18 +765,18 @@ public partial class SerenityDbContext : DbContext
             entity.HasIndex(e => e.Email, "email").IsUnique();
 
             entity.Property(e => e.Id)
-                .HasColumnType("int(11)")
+                .HasColumnType("integer")
                 .HasColumnName("id");
             entity.Property(e => e.AvatarUrl)
                 .HasColumnType("text")
                 .HasColumnName("avatar_url");
             entity.Property(e => e.CreatedAt)
-                .HasDefaultValueSql("current_timestamp()")
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
                 .HasColumnType("timestamp")
                 .HasColumnName("created_at");
             entity.Property(e => e.Email).HasColumnName("email");
             entity.Property(e => e.IsActive)
-                .HasDefaultValueSql("'1'")
+                .HasDefaultValueSql("1")
                 .HasColumnName("is_active");
             entity.Property(e => e.Name)
                 .HasMaxLength(255)
@@ -789,11 +785,11 @@ public partial class SerenityDbContext : DbContext
                 .HasMaxLength(255)
                 .HasColumnName("password_hash");
             entity.Property(e => e.Role)
-                .HasColumnType("tinyint(4)")
+                .HasColumnType("smallint")
                 .HasColumnName("role");
             entity.Property(e => e.UpdatedAt)
                 .ValueGeneratedOnAddOrUpdate()
-                .HasDefaultValueSql("current_timestamp()")
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
                 .HasColumnType("timestamp")
                 .HasColumnName("updated_at");
         });
