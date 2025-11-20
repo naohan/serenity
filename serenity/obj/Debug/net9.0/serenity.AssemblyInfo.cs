@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("serenity")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d9fc349bd3d334402c6823d95aef3364296c4a7c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+83d7622c8805f0c318fff661d0c65643676c0236")]
 [assembly: System.Reflection.AssemblyProductAttribute("serenity")]
 [assembly: System.Reflection.AssemblyTitleAttribute("serenity")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
