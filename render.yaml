@@ -1,0 +1,30 @@
+services:
+  - type: web
+    name: serenity-api
+    runtime: dotnet
+    buildCommand: dotnet build serenity.sln -c Release
+    startCommand: dotnet run --project serenity/serenity.csproj --no-build
+    envVars:
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Production
+      - key: ConnectionStrings__DefaultConnection
+        sync: false
+      - key: Jwt__SecretKey
+        sync: false
+      - key: Jwt__Issuer
+        value: Serenity
+      - key: Jwt__Audience
+        value: SerenityUsers
+      - key: Jwt__ExpirationMinutes
+        value: 60
+      - key: Groq__ApiKey
+        sync: false
+      - key: Groq__BaseUrl
+        value: https://api.groq.com/openai/v1
+      - key: Groq__Model
+        value: llama-3.1-8b-instant
+      - key: Authentication__Google__ClientId
+        sync: false
+      - key: Authentication__Google__ClientSecret
+        sync: false
+
