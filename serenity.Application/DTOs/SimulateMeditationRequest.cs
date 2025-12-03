@@ -10,3 +10,4 @@ public class SimulateMeditationRequest
     public int? NumberOfSessions { get; set; } // Si es null, genera 1-3 sesiones aleatorias
 }
 
+

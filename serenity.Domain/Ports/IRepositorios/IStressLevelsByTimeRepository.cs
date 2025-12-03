@@ -14,3 +14,4 @@ public interface IStressLevelsByTimeRepository : IRepository<StressLevelsByTime>
 
 
 
+

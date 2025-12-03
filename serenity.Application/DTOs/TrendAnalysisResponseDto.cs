@@ -14,3 +14,4 @@ public class TrendAnalysisResponseDto
     public DateTime GeneratedAt { get; set; }
 }
 
+

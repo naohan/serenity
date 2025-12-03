@@ -39,14 +39,15 @@ public class RegisterUserUseCase
             throw new InvalidOperationException($"El email '{request.Email}' ya está registrado.");
         }
 
+        var now = DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Unspecified);
         var user = new User
         {
             Name = request.Name,
             Email = request.Email,
             PasswordHash = _passwordHasher.HashPassword(request.Password),
             Role = request.Role,
-            CreatedAt = DateTime.UtcNow,
-            UpdatedAt = DateTime.UtcNow,
+            CreatedAt = now,
+            UpdatedAt = now,
             IsActive = true
         };
 

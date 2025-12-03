@@ -12,3 +12,4 @@ public class InsightResponseDto
     public DateTime GeneratedAt { get; set; }
 }
 
+

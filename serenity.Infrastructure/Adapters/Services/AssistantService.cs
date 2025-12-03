@@ -145,9 +145,8 @@ Datos del paciente:
         var history = $@"Historial del Paciente:
 Nombre: {patient.User?.Name ?? "N/A"}
 Edad: {patient.Age?.ToString() ?? "N/A"}
-Enfermedades: {patient.Diseases ?? "Ninguna registrada"}
-Consejo médico: {patient.MedicalAdvice ?? "Ninguno"}
-Objetivo inicial: {patient.InitialObjective ?? "No definido"}
+Estado: {patient.Status ?? "No especificado"}
+Diagnóstico: {patient.Diagnosis ?? "No registrado"}
 
 Estados de ánimo diarios (últimos 30):
 {string.Join("\n", dailyMoods.Select(dm => $"- {dm.Date}: {dm.Mood} - {dm.Note}"))}

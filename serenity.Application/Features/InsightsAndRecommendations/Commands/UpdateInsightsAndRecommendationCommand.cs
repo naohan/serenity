@@ -23,3 +23,4 @@ public class UpdateInsightsAndRecommendationCommandHandler : IRequestHandler<Upd
 
 
 
+

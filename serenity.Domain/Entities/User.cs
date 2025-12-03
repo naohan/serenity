@@ -17,6 +17,8 @@ public partial class User
 
     public string? AvatarUrl { get; set; }
 
+    public string? GoogleId { get; set; }
+
     public DateTime CreatedAt { get; set; }
 
     public DateTime UpdatedAt { get; set; }

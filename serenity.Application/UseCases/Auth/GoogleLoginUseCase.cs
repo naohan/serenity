@@ -83,14 +83,14 @@ public class GoogleLoginUseCase
                 user.AvatarUrl = avatar;
             }
 
-            user.UpdatedAt = DateTime.Now;
+            user.UpdatedAt = DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Unspecified);
             await _userRepository.UpdateAsync(user);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
         }
         else
         {
             // Crear nuevo usuario
-            var now = DateTime.Now;
+            var now = DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Unspecified);
             user = new User
             {
                 Name = name,

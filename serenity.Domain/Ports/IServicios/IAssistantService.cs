@@ -51,3 +51,4 @@ public class AITrendAnalysisResult
     public List<string> Recommendations { get; set; } = new();
 }
 
+

@@ -10,3 +10,4 @@ public class SimulateStressRequest
     public int? HoursToSimulate { get; set; } // Si es null, simula 24 horas
 }
 
+

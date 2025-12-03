@@ -21,3 +21,4 @@ public class AnalyzeTrendsQueryHandler : IRequestHandler<AnalyzeTrendsQuery, Tre
     }
 }
 
+
