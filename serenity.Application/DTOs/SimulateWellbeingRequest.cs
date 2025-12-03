@@ -9,3 +9,4 @@ public class SimulateWellbeingRequest
     public DateOnly Date { get; set; } = DateOnly.FromDateTime(DateTime.Now);
 }
 
+

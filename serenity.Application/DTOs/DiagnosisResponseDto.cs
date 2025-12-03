@@ -12,3 +12,4 @@ public class DiagnosisResponseDto
     public DateTime GeneratedAt { get; set; }
 }
 
+

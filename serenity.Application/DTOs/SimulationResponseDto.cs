@@ -12,3 +12,4 @@ public class SimulationResponseDto
     public string Message { get; set; } = string.Empty;
 }
 
+

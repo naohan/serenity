@@ -9,3 +9,4 @@ public class SimulateFullDayRequest
     public DateOnly Date { get; set; } = DateOnly.FromDateTime(DateTime.Now);
 }
 
+

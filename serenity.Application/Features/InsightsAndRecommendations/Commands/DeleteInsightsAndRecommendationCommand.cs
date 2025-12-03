@@ -22,3 +22,4 @@ public class DeleteInsightsAndRecommendationCommandHandler : IRequestHandler<Del
 
 
 
+

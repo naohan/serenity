@@ -21,3 +21,4 @@ public class SimulateStressCommandHandler : IRequestHandler<SimulateStressComman
     }
 }
 
+

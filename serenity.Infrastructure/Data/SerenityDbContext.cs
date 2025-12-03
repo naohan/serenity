@@ -787,6 +787,9 @@ public partial class SerenityDbContext : DbContext
             entity.Property(e => e.Role)
                 .HasColumnType("smallint")
                 .HasColumnName("role");
+            entity.Property(e => e.GoogleId)
+                .HasMaxLength(255)
+                .HasColumnName("google_id");
             entity.Property(e => e.UpdatedAt)
                 .ValueGeneratedOnAddOrUpdate()
                 .HasDefaultValueSql("CURRENT_TIMESTAMP")

@@ -23,3 +23,4 @@ public class GetAppointmentByIdQueryHandler : IRequestHandler<GetAppointmentById
 
 
 
+

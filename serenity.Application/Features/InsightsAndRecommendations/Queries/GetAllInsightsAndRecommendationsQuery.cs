@@ -23,3 +23,4 @@ public class GetAllInsightsAndRecommendationsQueryHandler : IRequestHandler<GetA
 
 
 
+

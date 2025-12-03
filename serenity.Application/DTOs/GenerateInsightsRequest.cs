@@ -10,3 +10,4 @@ public class GenerateInsightsRequest
     public int? DaysOfHistory { get; set; } // If null, includes all history
 }
 
+

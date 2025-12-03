@@ -24,6 +24,11 @@ public class UserRepository : Repository<User>, IUserRepository
         return await DbSet.FirstOrDefaultAsync(u => u.Name == name, cancellationToken);
     }
 
+    public async Task<User?> GetByGoogleIdAsync(string googleId, CancellationToken cancellationToken = default)
+    {
+        return await DbSet.FirstOrDefaultAsync(u => u.GoogleId == googleId, cancellationToken);
+    }
+
     public override async Task<User?> GetByIdAsync(int id, CancellationToken cancellationToken = default)
     {
         return await DbSet.FirstOrDefaultAsync(u => u.Id == id, cancellationToken);

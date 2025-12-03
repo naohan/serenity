@@ -21,3 +21,4 @@ public class SimulateFullDayCommandHandler : IRequestHandler<SimulateFullDayComm
     }
 }
 
+

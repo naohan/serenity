@@ -21,3 +21,4 @@ public class GenerateInsightsCommandHandler : IRequestHandler<GenerateInsightsCo
     }
 }
 
+
