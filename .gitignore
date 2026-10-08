@@ -12,6 +12,13 @@ obj/
 # Configuration files (may contain sensitive data)
 appsettings.json
 appsettings.Development.json
+appsettings.Production.json
+secrets.json
+
+# Local environment files
+.env
+.env.*
+!.env.example
 
 # Visual Studio / Rider
 .vs/
